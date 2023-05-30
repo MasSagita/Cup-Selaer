@@ -170,6 +170,11 @@ boolean button(int i) {
     if (adcButton >= 350 + kalibrasi_btn && adcButton <= 370 + kalibrasi_btn) y = 0;
     else y = 1;
   }
+  // button 3 + button 2
+  if (i == 32) {
+    if (adcButton >= 380 + kalibrasi_btn && adcButton <= 400 + kalibrasi_btn) y = 0;
+    else y = 1;
+  }
   return y;
 }
 
