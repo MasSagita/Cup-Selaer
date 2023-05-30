@@ -251,6 +251,39 @@ void setting_menu() {
         resetFunc();
       }
     }
+    if (!button(32)) {
+      lcd.clear(), lcd.setCursor(0, 0), lcd.print(F("     -MSGT-"));
+      beep_once(700);
+      lcd.clear(), lcd.setCursor(0, 0), lcd.print(F("     -MSGT-"));
+      beep_once(700), lcd.clear();
+      while (1) {
+        refresh_screen(2);
+        lcd.setCursor(0, 0), lcd.print(F(" Clear EEPROM ?"));
+        lcd.setCursor(2, 1), lcd.print(F("Yes"));
+        lcd.setCursor(11, 1), lcd.print(F("No!"));
+        if (!button(1)) break;
+        if (!button(2)) {
+          lcd.clear();
+          int ee, ce;
+          while (1) {
+            lcd.setCursor(0, 0), lcd.print(F("    Clearing"));
+            for (ee = 0; ee <= EEPROM.length(); ee++) {
+              EEPROM.write(ee, 0);
+              ce += 1;
+              delay(5);
+              ce = map(ee, 0, EEPROM.length(), 0, 15);
+              lcd.setCursor(ce, 1), lcd.print(F("."));
+            }
+            if (ee >= EEPROM.length()) {
+              lcd.clear();
+              lcd.setCursor(0, 1), lcd.print(F(" Restart System"));
+              delay(1500);
+            }
+            resetFunc();
+          }
+        }
+      }
+    }
   }
 }
 
